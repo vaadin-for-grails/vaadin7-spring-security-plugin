@@ -21,6 +21,8 @@ class DefaultLoginView extends CustomComponent implements LoginView {
     PasswordField passwordField
     Button loginButton
 
+    FormLayout formLayout
+
     LoginPresenter presenter
 
     @PostConstruct
@@ -32,27 +34,27 @@ class DefaultLoginView extends CustomComponent implements LoginView {
 
     protected Component buildCompositionRoot() {
         def layout = new VerticalLayout()
-        def form = new FormLayout()
-        form.setWidthUndefined()
+        formLayout = new FormLayout()
+        formLayout.setWidthUndefined()
         def title = new Label(Grails.i18n("loginView.title"))
         title.setStyleName("h1")
-        form.addComponent(title)
+        formLayout.addComponent(title)
 
-        form.addComponent(usernameField = new TextField(Grails.i18n("loginView.username")))
+        formLayout.addComponent(usernameField = new TextField(Grails.i18n("loginView.username")))
         usernameField.setImmediate(true)
         usernameField.focus()
-        form.addComponent(passwordField = new PasswordField(Grails.i18n("loginView.password")))
-        form.addComponent(loginButton = new Button(Grails.i18n("loginView.login"), new Button.ClickListener() {
+        formLayout.addComponent(passwordField = new PasswordField(Grails.i18n("loginView.password")))
+        formLayout.addComponent(loginButton = new Button(Grails.i18n("loginView.login"), new Button.ClickListener() {
             @Override
             void buttonClick(Button.ClickEvent clickEvent) {
-//                presenter.login()
+                presenter.login()
             }
         }))
         loginButton.setStyleName("primary")
         loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER)
 
-        layout.addComponent(form)
-        layout.setComponentAlignment(form, Alignment.MIDDLE_CENTER)
+        layout.addComponent(formLayout)
+        layout.setComponentAlignment(formLayout, Alignment.MIDDLE_CENTER)
         layout
     }
 
