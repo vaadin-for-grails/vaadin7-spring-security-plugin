@@ -8,7 +8,6 @@ class GrailsVaadinSpringSecurityPluginGrailsPlugin {
             "grails-app/views/error.gsp"
     ]
 
-    def name = "vaadin-spring-security"
     def title = "Spring Security for Vaadin 7 Plugin"
     def author = "Stephan Grundner"
     def authorEmail = "stephan.grundner@gmail.com"
