@@ -4,7 +4,7 @@ grails-vaadin-spring-security-plugin
 Plugin for integration of Spring Security and Vaadin in Grails.
 
 # Setup
-Requires installed and configured `vaadin` plugin!
+Requires installed and configured `vaadin` plugin: http://grails.org/plugin/vaadin!
 Install `spring-security-core` plugin as described: http://grails.org/plugin/spring-security-core.
 Checkout the Grails Projekt and run `maven-install`. 
 
