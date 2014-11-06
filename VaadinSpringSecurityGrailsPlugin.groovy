@@ -1,6 +1,6 @@
 class VaadinSpringSecurityGrailsPlugin {
 
-    def version = "0.1"
+    def version = "0.9"
     def dependsOn = [vaadin: "* > 7.3.0"]
     def loadAfter = ['vaadin']
     def grailsVersion = "2.4 > *"
