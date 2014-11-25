@@ -3,7 +3,7 @@ package com.vaadin.grails.navigator
 import com.vaadin.grails.Vaadin
 import com.vaadin.grails.security.LoginView
 import com.vaadin.grails.security.NotAuthorizedView
-import com.vaadin.grails.server.SecuredMapping
+import com.vaadin.grails.server.SecurityMappingsProvider
 import com.vaadin.navigator.View
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
@@ -13,47 +13,43 @@ import grails.plugin.springsecurity.SpringSecurityUtils
  */
 class SecuredMappingsAwareViewProvider extends MappingsAwareViewProvider {
 
-    SecuredMapping mapping
-
-    SecuredMappingsAwareViewProvider(SecuredMapping mapping) {
-        super(mapping)
-        this.mapping = mapping
+    SecuredMappingsAwareViewProvider(String path) {
+        super(path)
     }
 
-    boolean requiresAuthentication(SecuredMapping mapping, String fragment) {
-        def securityService = Vaadin.applicationContext.getBean(SpringSecurityService)
-        mapping.getFragmentAccess(fragment) && !securityService.isLoggedIn()
+    Class<? extends View> getLoginViewClass() {
+        LoginView
     }
 
-    boolean isAuthorized(SecuredMapping mapping, String fragment) {
-        def access = mapping.getFragmentAccess(fragment)
-        if (access) {
-            return SpringSecurityUtils.ifAllGranted(access.join(","))
-        }
-        true
+    Class<? extends View> getNotAuthorizedViewClass() {
+        NotAuthorizedView
     }
 
     @Override
     String getViewName(String fragmentAndParams) {
-        println "get view name ${mapping.allFragments}"
-        super.getViewName(fragmentAndParams)
+        return super.getViewName(fragmentAndParams)
     }
 
     @Override
     View getView(String fragment) {
-        def viewClass = mapping.getViewClass(fragment)
-        println "get view class: ${viewClass}"
-        if (viewClass) {
-            if (requiresAuthentication(mapping, fragment)) {
-                return LoginView.newInstance()
+
+        def mappingsProvider = getMappingsProvider() as SecurityMappingsProvider
+        def viewClass = mappingsProvider.getViewClass(path, fragment)
+        def access = mappingsProvider.getAccess(viewClass)
+
+        def securityService = Vaadin.applicationContext.getBean(SpringSecurityService)
+        boolean secured = access && access.length > 0
+        if (secured) {
+            if (!securityService.isLoggedIn()) {
+                return loginViewClass
             } else {
-                if (isAuthorized(mapping, fragment)) {
-                    return super.getView(fragment)
-                } else {
-                    return NotAuthorizedView.newInstance()
+
+                if (!SpringSecurityUtils.ifAllGranted(access.join(","))) {
+                    return notAuthorizedViewClass
                 }
             }
         }
-        null
+
+        return super.getView(fragment)
     }
 }

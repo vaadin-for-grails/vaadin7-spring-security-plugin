@@ -1,11 +1,13 @@
 package com.vaadin.grails.server
 
 import com.vaadin.grails.Vaadin
+import com.vaadin.grails.VaadinUIClass
 import com.vaadin.grails.navigator.SecuredMappingsAwareViewProvider
 import com.vaadin.grails.security.LoginUI
 import com.vaadin.grails.security.NotAuthorizedUI
 import com.vaadin.navigator.Navigator
 import com.vaadin.server.UIClassSelectionEvent
+import com.vaadin.server.UICreateEvent
 import com.vaadin.ui.UI
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
@@ -15,41 +17,46 @@ import grails.plugin.springsecurity.SpringSecurityUtils
  */
 class SecuredMappingsAwareUIProvider extends MappingsAwareUIProvider {
 
-    boolean requiresAuthentication(SecuredMapping mapping) {
-        def securityService = Vaadin.applicationContext.getBean(SpringSecurityService)
-        boolean hasViews = mapping.allFragments.size() > 0
-        mapping.access && !securityService.isLoggedIn() && !hasViews
+    SecurityMappingsProvider getSecurityMappingsProvider() {
+        super.getMappingsProvider()
     }
 
-    boolean isAuthorized(SecuredMapping mapping) {
-        def access = mapping.access
-        if (access) {
-            return SpringSecurityUtils.ifAllGranted(access.join(","))
-        }
-        true
+    Class<? extends UI> getLoginUIClass() {
+        LoginUI
     }
 
-    @Override
-    Class<? extends UI> getUIClass(UIClassSelectionEvent event) {
-        SecuredMapping mapping = getMapping(event)
-
-        if (requiresAuthentication(mapping)) {
-            return LoginUI
-        } else {
-
-            if (isAuthorized(mapping)) {
-                return super.getUIClass(event)
-            }
-
-        }
-
+    Class<? extends UI> getNotAuthorizedUIClass() {
         NotAuthorizedUI
     }
 
     @Override
-    protected void applyNavigator(UI ui, Mapping mapping) {
+    Class<? extends UI> getUIClass(UIClassSelectionEvent event) {
+        def mappingsProvider = securityMappingsProvider
+        def path = pathHelper.getPathWithinApplication(event.request)
+        def uiClass = mappingsProvider.getUIClass(path)
+        def access = mappingsProvider.getAccess(uiClass)
+
+        def securityService = Vaadin.applicationContext.getBean(SpringSecurityService)
+        boolean secured = access && access.length > 0
+        if (secured) {
+            if (!securityService.isLoggedIn()) {
+                return loginUIClass
+            } else {
+
+                if (!SpringSecurityUtils.ifAllGranted(access.join(","))) {
+                    return notAuthorizedUIClass
+                }
+            }
+        }
+
+        return super.getUIClass(event)
+    }
+
+    @Override
+    protected Navigator createNavigator(UICreateEvent event, UI ui) {
+        def path = pathHelper.getPathWithinApplication(event.request)
         def navigator = new Navigator(ui, ui)
-        navigator.addProvider(new SecuredMappingsAwareViewProvider(mapping))
-        ui.navigator = navigator
+        navigator.addProvider(new SecuredMappingsAwareViewProvider(path))
+        navigator
     }
 }
