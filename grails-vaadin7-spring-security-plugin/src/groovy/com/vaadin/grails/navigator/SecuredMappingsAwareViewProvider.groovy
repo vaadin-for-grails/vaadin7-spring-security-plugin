@@ -33,7 +33,7 @@ class SecuredMappingsAwareViewProvider extends MappingsAwareViewProvider {
     @Override
     View getView(String fragment) {
 
-        def mappingsProvider = getMappingsProvider() as SecurityMappingsProvider
+        def mappingsProvider = super.mappingsProvider as SecurityMappingsProvider
         def viewClass = mappingsProvider.getViewClass(path, fragment)
         def access = mappingsProvider.getAccess(viewClass)
 

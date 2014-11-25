@@ -1,7 +1,17 @@
 package com.vaadin.grails.security
 
+import com.vaadin.navigator.View
+import com.vaadin.navigator.ViewChangeListener
+import com.vaadin.ui.CustomComponent
+import com.vaadin.ui.Label
+
 /**
  * @author Stephan Grundner
  */
-class NotAuthorizedView {
+class NotAuthorizedView extends CustomComponent implements View {
+
+    @Override
+    void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
+        compositionRoot = new Label("Not authorized.")
+    }
 }

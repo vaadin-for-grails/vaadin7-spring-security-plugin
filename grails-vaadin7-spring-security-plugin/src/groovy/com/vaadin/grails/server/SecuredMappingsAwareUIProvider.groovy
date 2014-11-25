@@ -17,10 +17,6 @@ import grails.plugin.springsecurity.SpringSecurityUtils
  */
 class SecuredMappingsAwareUIProvider extends MappingsAwareUIProvider {
 
-    SecurityMappingsProvider getSecurityMappingsProvider() {
-        super.getMappingsProvider()
-    }
-
     Class<? extends UI> getLoginUIClass() {
         LoginUI
     }
@@ -31,7 +27,7 @@ class SecuredMappingsAwareUIProvider extends MappingsAwareUIProvider {
 
     @Override
     Class<? extends UI> getUIClass(UIClassSelectionEvent event) {
-        def mappingsProvider = securityMappingsProvider
+        def mappingsProvider = super.mappingsProvider as SecurityMappingsProvider
         def path = pathHelper.getPathWithinApplication(event.request)
         def uiClass = mappingsProvider.getUIClass(path)
         def access = mappingsProvider.getAccess(uiClass)
