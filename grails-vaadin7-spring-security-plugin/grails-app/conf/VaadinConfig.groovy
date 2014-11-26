@@ -1,4 +1,0 @@
-vaadin {
-
-    mappings { }
-}

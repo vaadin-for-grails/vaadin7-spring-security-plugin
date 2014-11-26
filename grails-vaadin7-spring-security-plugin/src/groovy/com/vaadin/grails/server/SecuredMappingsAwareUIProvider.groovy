@@ -1,7 +1,6 @@
 package com.vaadin.grails.server
 
 import com.vaadin.grails.Vaadin
-import com.vaadin.grails.VaadinUIClass
 import com.vaadin.grails.navigator.SecuredMappingsAwareViewProvider
 import com.vaadin.grails.security.LoginUI
 import com.vaadin.grails.security.NotAuthorizedUI
@@ -30,7 +29,7 @@ class SecuredMappingsAwareUIProvider extends MappingsAwareUIProvider {
         def mappingsProvider = super.mappingsProvider as SecurityMappingsProvider
         def path = pathHelper.getPathWithinApplication(event.request)
         def uiClass = mappingsProvider.getUIClass(path)
-        def access = mappingsProvider.getAccess(uiClass)
+        def access = mappingsProvider.getAccessRestriction(uiClass)
 
         def securityService = Vaadin.applicationContext.getBean(SpringSecurityService)
         boolean secured = access && access.length > 0

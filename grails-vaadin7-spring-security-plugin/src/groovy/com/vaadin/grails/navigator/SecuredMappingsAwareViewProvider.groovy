@@ -35,7 +35,7 @@ class SecuredMappingsAwareViewProvider extends MappingsAwareViewProvider {
 
         def mappingsProvider = super.mappingsProvider as SecurityMappingsProvider
         def viewClass = mappingsProvider.getViewClass(path, fragment)
-        def access = mappingsProvider.getAccess(viewClass)
+        def access = mappingsProvider.getAccessRestriction(viewClass)
 
         def securityService = Vaadin.applicationContext.getBean(SpringSecurityService)
         boolean secured = access && access.length > 0
