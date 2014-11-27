@@ -11,6 +11,8 @@ import com.vaadin.ui.CustomComponent
  */
 class LoginView extends CustomComponent implements View {
 
+    static namespace = "security"
+
     Component buildCompositionRoot() {
         new DefaultLoginPanel()
     }

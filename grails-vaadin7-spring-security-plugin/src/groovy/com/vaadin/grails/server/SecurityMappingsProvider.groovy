@@ -1,37 +1,22 @@
 package com.vaadin.grails.server
 
-import com.vaadin.grails.VaadinUIClass
-import com.vaadin.grails.VaadinViewClass
-
 /**
  * @author Stephan Grundner
  */
 class SecurityMappingsProvider extends DefaultMappingsProvider {
 
-//    static final def log = Logger.getLogger(SecurityMappingsProvider)
-
-    Map<VaadinUIClass, String[]> accessRestrictionByUIClass = new HashMap()
-    Map<VaadinViewClass, String[]> accessRestrictionMapByViewClass = new HashMap()
+    static final ACCESS_PATH_PROPERTY = "access"
+    static final ACCESS_FRAGMENT_PROPERTY = "access"
 
     @Override
-    protected VaadinUIClass pathToUIClass(String path, ConfigObject pathConfig) {
-        def uiClass = super.pathToUIClass(path, pathConfig)
-        accessRestrictionByUIClass.put(uiClass, pathConfig.access as String[])
-        uiClass
+    protected void handlePathConfig(String path, ConfigObject pathConfig) {
+        super.handlePathConfig(path, pathConfig)
+        setPathProperty(path, ACCESS_PATH_PROPERTY, pathConfig.get(ACCESS_PATH_PROPERTY))
     }
 
     @Override
-    protected VaadinViewClass fragmentToViewClass(String path, String fragment, ConfigObject fragmentConfig) {
-        def viewClass = super.fragmentToViewClass(path, fragment, fragmentConfig)
-        accessRestrictionMapByViewClass.put(viewClass, fragmentConfig.access as String[])
-        viewClass
-    }
-
-    String[] getAccessRestriction(VaadinUIClass uiClass) {
-        accessRestrictionByUIClass.get(uiClass)
-    }
-
-    String[] getAccessRestriction(VaadinViewClass viewClass) {
-        accessRestrictionMapByViewClass.get(viewClass)
+    protected void handleFragmentConfig(String path, String fragment, ConfigObject fragmentConfig) {
+        super.handleFragmentConfig(path, fragment, fragmentConfig)
+        setFragmentProperty(path, fragment, ACCESS_FRAGMENT_PROPERTY, fragmentConfig.get(ACCESS_FRAGMENT_PROPERTY))
     }
 }

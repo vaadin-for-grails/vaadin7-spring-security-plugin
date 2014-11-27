@@ -9,6 +9,8 @@ import com.vaadin.ui.UI
  */
 class NotAuthorizedUI extends UI {
 
+    static namespace = "security"
+
     @Override
     protected void init(VaadinRequest request) {
         content = new Label("Not authorized.")

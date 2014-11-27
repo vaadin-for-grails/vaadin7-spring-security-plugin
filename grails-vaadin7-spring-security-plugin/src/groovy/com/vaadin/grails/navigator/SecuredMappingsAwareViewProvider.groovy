@@ -25,6 +25,10 @@ class SecuredMappingsAwareViewProvider extends MappingsAwareViewProvider {
         NotAuthorizedView
     }
 
+    String[] getRoles(String fragment) {
+        mappingsProvider.getFragmentProperty(path, fragment, SecurityMappingsProvider.ACCESS_FRAGMENT_PROPERTY)
+    }
+
     @Override
     String getViewName(String fragmentAndParams) {
         return super.getViewName(fragmentAndParams)
@@ -32,21 +36,17 @@ class SecuredMappingsAwareViewProvider extends MappingsAwareViewProvider {
 
     @Override
     View getView(String fragment) {
-
-        def mappingsProvider = super.mappingsProvider as SecurityMappingsProvider
-        def viewClass = mappingsProvider.getViewClass(path, fragment)
-        def access = mappingsProvider.getAccessRestriction(viewClass)
-
-        def securityService = Vaadin.applicationContext.getBean(SpringSecurityService)
-        boolean secured = access && access.length > 0
-        if (secured) {
+        def roles = getRoles(fragment)
+        if (roles?.length > 0) {
+            def securityService = Vaadin.applicationContext.getBean(SpringSecurityService)
             if (!securityService.isLoggedIn()) {
-                return loginViewClass
+                def viewClass = Vaadin.utils.getVaadinViewClass(loginViewClass)
+                return Vaadin.utils.instantiateVaadinComponentClass(viewClass)
+            } else if (!SpringSecurityUtils.ifAllGranted(roles.join(","))) {
+                def viewClass = Vaadin.utils.getVaadinViewClass(notAuthorizedViewClass)
+                return Vaadin.utils.instantiateVaadinComponentClass(viewClass)
             } else {
-
-                if (!SpringSecurityUtils.ifAllGranted(access.join(","))) {
-                    return notAuthorizedViewClass
-                }
+//                granted!
             }
         }
 

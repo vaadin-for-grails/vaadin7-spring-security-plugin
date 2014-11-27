@@ -24,23 +24,22 @@ class SecuredMappingsAwareUIProvider extends MappingsAwareUIProvider {
         NotAuthorizedUI
     }
 
+    String[] getRoles(String path) {
+        mappingsProvider.getPathProperty(path, SecurityMappingsProvider.ACCESS_PATH_PROPERTY)
+    }
+
     @Override
     Class<? extends UI> getUIClass(UIClassSelectionEvent event) {
-        def mappingsProvider = super.mappingsProvider as SecurityMappingsProvider
         def path = pathHelper.getPathWithinApplication(event.request)
-        def uiClass = mappingsProvider.getUIClass(path)
-        def access = mappingsProvider.getAccessRestriction(uiClass)
-
-        def securityService = Vaadin.applicationContext.getBean(SpringSecurityService)
-        boolean secured = access && access.length > 0
-        if (secured) {
+        def roles = getRoles(path)
+        if (roles?.length > 0) {
+            def securityService = Vaadin.applicationContext.getBean(SpringSecurityService)
             if (!securityService.isLoggedIn()) {
                 return loginUIClass
+            } else if (!SpringSecurityUtils.ifAllGranted(roles.join(","))) {
+                return notAuthorizedUIClass
             } else {
-
-                if (!SpringSecurityUtils.ifAllGranted(access.join(","))) {
-                    return notAuthorizedUIClass
-                }
+//                granted!
             }
         }
 

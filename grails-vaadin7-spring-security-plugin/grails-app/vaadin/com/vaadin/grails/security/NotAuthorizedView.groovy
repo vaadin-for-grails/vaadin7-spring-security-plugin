@@ -10,6 +10,8 @@ import com.vaadin.ui.Label
  */
 class NotAuthorizedView extends CustomComponent implements View {
 
+    static namespace = "security"
+
     @Override
     void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
         compositionRoot = new Label("Not authorized.")

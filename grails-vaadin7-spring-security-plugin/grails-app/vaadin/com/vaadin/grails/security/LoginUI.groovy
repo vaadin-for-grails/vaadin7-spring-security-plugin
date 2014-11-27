@@ -10,6 +10,8 @@ import com.vaadin.ui.UI
  */
 class LoginUI extends UI {
 
+    static namespace = "security"
+
     protected Component buildContent() {
         new DefaultLoginPanel()
     }
