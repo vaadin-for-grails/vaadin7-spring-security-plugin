@@ -3,9 +3,11 @@ package com.vaadin.grails.security.ui
 import com.vaadin.ui.*
 
 /**
+ * A basic login component.
+ *
  * @author Stephan Grundner
  */
-public interface LoginPanel extends Component {
+public interface LoginComponent extends Component {
 
     Label getTitleLabel()
     TextField getUsernameField()

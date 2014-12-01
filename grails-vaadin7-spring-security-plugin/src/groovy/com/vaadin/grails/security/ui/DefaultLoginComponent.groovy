@@ -3,10 +3,14 @@ package com.vaadin.grails.security.ui
 import com.vaadin.event.ShortcutAction
 import com.vaadin.grails.Vaadin
 import com.vaadin.grails.security.LoginPresenter
-import com.vaadin.server.Sizeable
 import com.vaadin.ui.*
 
-class DefaultLoginPanel extends Panel implements LoginPanel {
+/**
+ * Default implementation for {@link LoginComponent}.
+ *
+ * @author Stephan Grundner
+ */
+class DefaultLoginComponent extends CustomComponent implements LoginComponent {
 
     final LoginPresenter presenter
 
@@ -15,14 +19,14 @@ class DefaultLoginPanel extends Panel implements LoginPanel {
     PasswordField passwordField
     Button loginButton
 
-    DefaultLoginPanel() {
+    DefaultLoginComponent() {
         presenter = createPresenter()
-        content = buildContent()
+        compositionRoot = buildCompositionRoot()
         presenter.init()
         setStyleName("borderless")
     }
 
-    protected Component buildContent() {
+    protected Component buildCompositionRoot() {
         def content = new VerticalLayout()
         content.setMargin(true)
         def form = new FormLayout()

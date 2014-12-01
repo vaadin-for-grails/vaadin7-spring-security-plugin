@@ -1,12 +1,17 @@
 package com.vaadin.grails.server
 
 /**
+ *
  * @author Stephan Grundner
  */
-class SecurityMappingsProvider extends DefaultMappingsProvider {
+class SecurityAwareUriMappingsHolder extends DefaultUriMappingsHolder {
 
     static final ACCESS_PATH_PROPERTY = "access"
     static final ACCESS_FRAGMENT_PROPERTY = "access"
+
+    SecurityAwareUriMappingsHolder() {
+        println "OK"
+    }
 
     @Override
     protected void handlePathConfig(String path, ConfigObject pathConfig) {

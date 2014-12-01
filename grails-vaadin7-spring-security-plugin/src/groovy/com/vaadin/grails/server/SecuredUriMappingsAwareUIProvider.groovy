@@ -1,7 +1,7 @@
 package com.vaadin.grails.server
 
 import com.vaadin.grails.Vaadin
-import com.vaadin.grails.navigator.SecuredMappingsAwareViewProvider
+import com.vaadin.grails.navigator.SecuredUriMappingsAwareViewProvider
 import com.vaadin.grails.security.LoginUI
 import com.vaadin.grails.security.NotAuthorizedUI
 import com.vaadin.navigator.Navigator
@@ -12,9 +12,19 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 
 /**
+ * Checks <code>UriMappings</code> for <code>access</code> properties.
+ * <p>
+ *     If there is an <code>access</code> property and the current user is not logged in,
+ *     a {@link com.vaadin.grails.security.ui.LoginComponent} is shown.
+ * </p>
+ * <p>
+ *     If there is an <code>access</code> property and the current user is not granted,
+ *     a {@link com.vaadin.grails.security.ui.NotAuthorizedComponent} is shown.
+ * </p>
+ *
  * @author Stephan Grundner
  */
-class SecuredMappingsAwareUIProvider extends MappingsAwareUIProvider {
+class SecuredUriMappingsAwareUIProvider extends UriMappingsAwareUIProvider {
 
     Class<? extends UI> getLoginUIClass() {
         LoginUI
@@ -25,7 +35,7 @@ class SecuredMappingsAwareUIProvider extends MappingsAwareUIProvider {
     }
 
     String[] getRoles(String path) {
-        mappingsProvider.getPathProperty(path, SecurityMappingsProvider.ACCESS_PATH_PROPERTY)
+        uriMappings.getPathProperty(path, SecurityAwareUriMappingsHolder.ACCESS_PATH_PROPERTY)
     }
 
     @Override
@@ -50,7 +60,7 @@ class SecuredMappingsAwareUIProvider extends MappingsAwareUIProvider {
     protected Navigator createNavigator(UICreateEvent event, UI ui) {
         def path = pathHelper.getPathWithinApplication(event.request)
         def navigator = new Navigator(ui, ui)
-        navigator.addProvider(new SecuredMappingsAwareViewProvider(path))
+        navigator.addProvider(new SecuredUriMappingsAwareViewProvider(path))
         navigator
     }
 }

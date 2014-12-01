@@ -1,24 +1,30 @@
 class VaadinSpringSecurityGrailsPlugin {
-    def version = "2.0"
+
+    def version = "2.1"
     def grailsVersion = "2.4 > *"
-    def pluginExcludes = [
-            "grails-app/views/error.gsp"
-    ]
+
+    def dependsOn = ["vaadin-core": "2.1"]
     def loadAfter = ["vaadin-core"]
 
-    def title = "Grails Vaadin7 Spring Security Plugin Plugin" // Headline display name of the plugin
-    def author = "Your name"
-    def authorEmail = ""
+    def title = "Vaadin Spring Security Plugin"
+    def author = "Stephan Grundner"
+    def authorEmail = "stephan.grundner@gmail.com"
     def description = '''\
-Brief summary/description of the plugin.
+Plugin for integrating Spring Security with Vaadin into Grails.
 '''
-    def documentation = "http://grails.org/plugin/grails-vaadin7-spring-security-plugin"
+    def documentation = "https://github.com/vaadin-for-grails/grails-vaadin-spring-security-plugin"
+
+    def license = "APACHE"
+    def organization = [ name: "Vaadin for Grails", url: "https://github.com/vaadin-for-grails" ]
+    def developers = [ [ name: "Stephan Grundner", email: "stephan.grundner@gmail.com" ]]
+
+    def scm = [ url: "https://github.com/vaadin-for-grails/grails-vaadin-spring-security-plugin" ]
 
     def doWithSpring = {
-        "uiProvider"(com.vaadin.grails.server.SecuredMappingsAwareUIProvider) { bean ->
+        "uiProvider"(com.vaadin.grails.server.SecuredUriMappingsAwareUIProvider) { bean ->
             bean.scope = "prototype"
             bean.autowire = "byName"
         }
-        "mappingsProvider" (com.vaadin.grails.server.SecurityMappingsProvider)
+        "uriMappingsHolder" (com.vaadin.grails.server.SecurityAwareUriMappingsHolder)
     }
 }

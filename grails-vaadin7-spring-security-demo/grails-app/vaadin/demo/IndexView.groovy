@@ -13,6 +13,6 @@ class IndexView extends CustomComponent implements View {
 
     @Override
     void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-        compositionRoot = new Label("Index.")
+        compositionRoot = new Label("Index View.")
     }
 }

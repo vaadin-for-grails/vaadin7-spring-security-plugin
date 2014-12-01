@@ -1,7 +1,7 @@
 package com.vaadin.grails.security
 
 import com.vaadin.grails.Vaadin
-import com.vaadin.grails.security.ui.LoginPanel
+import com.vaadin.grails.security.ui.LoginComponent
 import com.vaadin.server.Page
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
@@ -9,13 +9,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder
 
 /**
+ * Presenter class for {@link LoginComponent}.
+ *
  * @author Stephan Grundner
  */
 class LoginPresenter {
 
-    final LoginPanel panel
+    final LoginComponent panel
 
-    LoginPresenter(LoginPanel panel) {
+    LoginPresenter(LoginComponent panel) {
         this.panel = panel
     }
 

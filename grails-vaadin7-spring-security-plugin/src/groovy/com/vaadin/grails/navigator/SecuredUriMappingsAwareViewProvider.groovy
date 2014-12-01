@@ -3,17 +3,27 @@ package com.vaadin.grails.navigator
 import com.vaadin.grails.Vaadin
 import com.vaadin.grails.security.LoginView
 import com.vaadin.grails.security.NotAuthorizedView
-import com.vaadin.grails.server.SecurityMappingsProvider
+import com.vaadin.grails.server.SecurityAwareUriMappingsHolder
 import com.vaadin.navigator.View
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 
 /**
+ * Checks <code>UriMappings</code> for <code>access</code> properties.
+ * <p>
+ *     If there is an <code>access</code> property and the current user is not logged in,
+ *     a {@link com.vaadin.grails.security.ui.LoginComponent} is shown.
+ * </p>
+ * <p>
+ *     If there is an <code>access</code> property and the current user is not granted,
+ *     a {@link com.vaadin.grails.security.ui.NotAuthorizedComponent} is shown.
+ * </p>
+ *
  * @author Stephan Grundner
  */
-class SecuredMappingsAwareViewProvider extends MappingsAwareViewProvider {
+class SecuredUriMappingsAwareViewProvider extends UriMappingsAwareViewProvider {
 
-    SecuredMappingsAwareViewProvider(String path) {
+    SecuredUriMappingsAwareViewProvider(String path) {
         super(path)
     }
 
@@ -26,7 +36,7 @@ class SecuredMappingsAwareViewProvider extends MappingsAwareViewProvider {
     }
 
     String[] getRoles(String fragment) {
-        mappingsProvider.getFragmentProperty(path, fragment, SecurityMappingsProvider.ACCESS_FRAGMENT_PROPERTY)
+        uriMappings.getFragmentProperty(path, fragment, SecurityAwareUriMappingsHolder.ACCESS_FRAGMENT_PROPERTY)
     }
 
     @Override
@@ -36,6 +46,10 @@ class SecuredMappingsAwareViewProvider extends MappingsAwareViewProvider {
 
     @Override
     View getView(String fragment) {
+        if (fragment == "") {
+            fragment = defaultFragment
+        }
+
         def roles = getRoles(fragment)
         if (roles?.length > 0) {
             def securityService = Vaadin.applicationContext.getBean(SpringSecurityService)
