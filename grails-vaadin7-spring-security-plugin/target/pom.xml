@@ -4,16 +4,34 @@
   <groupId>org.grails.plugins</groupId>
   <artifactId>vaadin-spring-security</artifactId>
   <packaging>zip</packaging>
-  <version>0.1</version>
-  <name>Grails Vaadin7 Spring Security Plugin Plugin</name>
-  <description>Brief summary/description of the plugin.
+  <version>2.1</version>
+  <name>Vaadin Spring Security Plugin</name>
+  <description>Plugin for integrating Spring Security with Vaadin into Grails.
 </description>
-  <url>http://grails.org/plugin/grails-vaadin7-spring-security-plugin</url>
+  <url>https://github.com/vaadin-for-grails/grails-vaadin-spring-security-plugin</url>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  <organization>
+    <name>Vaadin for Grails</name>
+    <url>https://github.com/vaadin-for-grails</url>
+  </organization>
   <developers>
     <developer>
-      <name>Your name</name>
+      <name>Stephan Grundner</name>
+      <email>stephan.grundner@gmail.com</email>
+    </developer>
+    <developer>
+      <name>Stephan Grundner</name>
+      <email>stephan.grundner@gmail.com</email>
     </developer>
   </developers>
+  <scm>
+    <url>https://github.com/vaadin-for-grails/grails-vaadin-spring-security-plugin</url>
+  </scm>
   <dependencies>
     <dependency>
       <groupId>net.sf.ehcache</groupId>
