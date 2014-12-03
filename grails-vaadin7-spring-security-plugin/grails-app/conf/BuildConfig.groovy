@@ -33,6 +33,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+        mavenRepo "https://oss.sonatype.org/content/repositories/snapshots"
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
@@ -49,8 +50,18 @@ grails.project.dependency.resolution = {
             export = false
         }
 
-        compile(":vaadin-core:2.1") {
+        compile("com.github.vaadin-for-grails:vaadin-core:2.1-SNAPSHOT") {
             export = false
         }
     }
 }
+
+grails.project.repos.default = "sonatype"
+//grails.project.repos.sonatype.url = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+grails.project.repos.sonatype.url = "https://oss.sonatype.org/content/repositories/snapshots"
+grails.project.repos.sonatype.type = "maven"
+
+// Add the following properties to ~/.grails/settings.groovy:
+
+//grails.project.repos.sonatype.username
+//grails.project.repos.sonatype.password

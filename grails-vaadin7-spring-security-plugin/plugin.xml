@@ -7,7 +7,6 @@
   <documentation>https://github.com/vaadin-for-grails/grails-vaadin-spring-security-plugin</documentation>
   <type>VaadinSpringSecurityGrailsPlugin</type>
   <resources>
-    <resource>VaadinConfig</resource>
     <resource>com.vaadin.grails.security.LoginUI</resource>
     <resource>com.vaadin.grails.security.LoginView</resource>
     <resource>com.vaadin.grails.security.NotAuthorizedUI</resource>
