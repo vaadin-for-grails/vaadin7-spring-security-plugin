@@ -3,6 +3,7 @@ class VaadinSpringSecurityGrailsPlugin {
     def version = "2.1-SNAPSHOT"
     def grailsVersion = "2.4 > *"
 
+    def group = "com.github.vaadin-for-grails"
     def dependsOn = ["vaadin-core": "2.1-SNAPSHOT"]
     def loadAfter = ["vaadin-core"]
 

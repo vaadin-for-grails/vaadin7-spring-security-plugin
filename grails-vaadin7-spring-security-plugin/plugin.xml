@@ -1,4 +1,4 @@
-<plugin name='vaadin-spring-security' version='2.1' grailsVersion='2.4 &gt; *'>
+<plugin name='vaadin-spring-security' version='2.1-SNAPSHOT' grailsVersion='2.4 &gt; *'>
   <author>Stephan Grundner</author>
   <authorEmail>stephan.grundner@gmail.com</authorEmail>
   <title>Vaadin Spring Security Plugin</title>
@@ -7,6 +7,7 @@
   <documentation>https://github.com/vaadin-for-grails/grails-vaadin-spring-security-plugin</documentation>
   <type>VaadinSpringSecurityGrailsPlugin</type>
   <resources>
+    <resource>VaadinConfig</resource>
     <resource>com.vaadin.grails.security.LoginUI</resource>
     <resource>com.vaadin.grails.security.LoginView</resource>
     <resource>com.vaadin.grails.security.NotAuthorizedUI</resource>
