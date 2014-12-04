@@ -1,6 +1,6 @@
 class VaadinSpringSecurityGrailsPlugin {
 
-    def version = "2.1"
+    def version = "2.1-SNAPSHOT"
     def grailsVersion = "2.4 > *"
 
     def dependsOn = ["vaadin-core": "2.1-SNAPSHOT"]

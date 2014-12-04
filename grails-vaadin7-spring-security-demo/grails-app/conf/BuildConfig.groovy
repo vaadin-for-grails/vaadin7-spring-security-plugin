@@ -47,6 +47,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+        mavenRepo "https://oss.sonatype.org/content/groups/public"
     }
 
     dependencies {
@@ -77,6 +78,6 @@ grails.project.dependency.resolution = {
         //compile ":handlebars-asset-pipeline:1.3.0.3"
 
         compile ":spring-security-core:2.0-RC4"
-        compile ":vaadin-core:2.0"
+        compile "com.github.vaadin-for-grails:vaadin-core:2.1-SNAPSHOT"
     }
 }
