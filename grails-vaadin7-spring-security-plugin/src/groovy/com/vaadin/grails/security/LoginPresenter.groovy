@@ -3,6 +3,7 @@ package com.vaadin.grails.security
 import com.vaadin.grails.Vaadin
 import com.vaadin.grails.security.ui.LoginComponent
 import com.vaadin.server.Page
+import com.vaadin.server.UserError
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -46,5 +47,9 @@ class LoginPresenter {
         Page.current.reload()
     }
 
-    void failed() { }
+    void failed() {
+        def error = new UserError(Vaadin.i18n("security.login.failed.message"))
+        panel.usernameField.setComponentError(error)
+        panel.passwordField.setComponentError(error)
+    }
 }
