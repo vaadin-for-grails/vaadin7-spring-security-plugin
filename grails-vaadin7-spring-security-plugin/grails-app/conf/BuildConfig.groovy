@@ -50,7 +50,7 @@ grails.project.dependency.resolution = {
             export = false
         }
 
-        compile("com.github.vaadin-for-grails:vaadin-core:2.1-SNAPSHOT") {
+        compile("com.github.vaadin-for-grails:vaadin-core:2.5-SNAPSHOT") {
             export = false
         }
     }

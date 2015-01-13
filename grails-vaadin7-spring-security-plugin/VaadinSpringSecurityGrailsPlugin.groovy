@@ -1,10 +1,10 @@
 class VaadinSpringSecurityGrailsPlugin {
 
-    def version = "2.1-SNAPSHOT"
+    def version = "2.5-SNAPSHOT"
     def grailsVersion = "2.4 > *"
 
     def group = "com.github.vaadin-for-grails"
-    def dependsOn = ["vaadin-core": "2.1-SNAPSHOT"]
+    def dependsOn = ["vaadin-core": "2.5-SNAPSHOT"]
     def loadAfter = ["vaadin-core"]
 
     def title = "Vaadin Spring Security Plugin"
