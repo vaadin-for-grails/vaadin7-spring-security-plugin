@@ -55,10 +55,10 @@ class SecuredUriMappingsAwareViewProvider extends UriMappingsAwareViewProvider {
             def securityService = Vaadin.applicationContext.getBean(SpringSecurityService)
             if (!securityService.isLoggedIn()) {
                 def viewClass = Vaadin.utils.getVaadinViewClass(loginViewClass)
-                return Vaadin.utils.instantiateVaadinComponentClass(viewClass)
+                return Vaadin.utils.newInstance(viewClass)
             } else if (!SpringSecurityUtils.ifAllGranted(roles.join(","))) {
                 def viewClass = Vaadin.utils.getVaadinViewClass(notAuthorizedViewClass)
-                return Vaadin.utils.instantiateVaadinComponentClass(viewClass)
+                return Vaadin.utils.newInstance(viewClass)
             } else {
 //                granted!
             }
