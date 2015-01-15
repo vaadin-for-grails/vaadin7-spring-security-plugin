@@ -30,6 +30,6 @@ Plugin for integrating Spring Security with Vaadin into Grails.
             bean.scope = "prototype"
             bean.autowire = "byName"
         }
-        "uriMappingsHolder" (com.vaadin.grails.server.SecurityAwareUriMappingsHolder)
+        "uriMappingsHolder"(com.vaadin.grails.server.SecurityAwareUriMappingsHolder)
     }
 }

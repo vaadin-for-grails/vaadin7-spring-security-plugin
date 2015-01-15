@@ -46,7 +46,7 @@ class SecuredUriMappingsAwareViewProvider extends UriMappingsAwareViewProvider {
 
         def roles = getRoles(fragment)
         if (roles?.length > 0) {
-            def securityService = Vaadin.applicationContext.getBean(SpringSecurityService)
+            def securityService = Vaadin.getInstance(SpringSecurityService)
             if (!securityService.isLoggedIn()) {
                 return Vaadin.newInstance(loginViewClass)
             } else if (!SpringSecurityUtils.ifAllGranted(roles.join(","))) {
@@ -56,6 +56,6 @@ class SecuredUriMappingsAwareViewProvider extends UriMappingsAwareViewProvider {
             }
         }
 
-        return super.getView(fragment)
+        super.getView(fragment)
     }
 }
