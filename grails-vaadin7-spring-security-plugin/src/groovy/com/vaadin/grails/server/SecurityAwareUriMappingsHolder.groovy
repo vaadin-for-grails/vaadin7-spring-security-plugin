@@ -9,10 +9,6 @@ class SecurityAwareUriMappingsHolder extends DefaultUriMappingsHolder {
     static final ACCESS_PATH_PROPERTY = "access"
     static final ACCESS_FRAGMENT_PROPERTY = "access"
 
-    SecurityAwareUriMappingsHolder() {
-        println "OK"
-    }
-
     @Override
     protected void handlePathConfig(String path, ConfigObject pathConfig) {
         super.handlePathConfig(path, pathConfig)

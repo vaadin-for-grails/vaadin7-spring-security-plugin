@@ -78,6 +78,6 @@ grails.project.dependency.resolution = {
         //compile ":handlebars-asset-pipeline:1.3.0.3"
 
         compile ":spring-security-core:2.0-RC4"
-        compile "com.github.vaadin-for-grails:vaadin-core:2.1-SNAPSHOT"
+        compile "com.github.vaadin-for-grails:vaadin-core:1.0-SNAPSHOT"
     }
 }

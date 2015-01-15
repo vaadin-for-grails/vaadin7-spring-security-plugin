@@ -1,6 +1,5 @@
-package com.vaadin.grails.security
+package com.vaadin.grails.security.ui
 
-import com.vaadin.grails.security.ui.DefaultLoginComponent
 import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener
 import com.vaadin.ui.Component
@@ -12,8 +11,6 @@ import com.vaadin.ui.CustomComponent
  * @author Stephan Grundner
  */
 class LoginView extends CustomComponent implements View {
-
-    static namespace = "security"
 
     Component buildCompositionRoot() {
         new DefaultLoginComponent()

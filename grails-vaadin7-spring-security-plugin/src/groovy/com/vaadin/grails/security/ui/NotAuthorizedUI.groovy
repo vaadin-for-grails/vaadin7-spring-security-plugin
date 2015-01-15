@@ -1,6 +1,5 @@
-package com.vaadin.grails.security
+package com.vaadin.grails.security.ui
 
-import com.vaadin.grails.security.ui.DefaultNotAuthorizedComponent
 import com.vaadin.server.VaadinRequest
 import com.vaadin.ui.Component
 import com.vaadin.ui.UI
@@ -11,8 +10,6 @@ import com.vaadin.ui.UI
  * @author Stephan Grundner
  */
 class NotAuthorizedUI extends UI {
-
-    static namespace = "security"
 
     protected Component buildContent() {
         new DefaultNotAuthorizedComponent()

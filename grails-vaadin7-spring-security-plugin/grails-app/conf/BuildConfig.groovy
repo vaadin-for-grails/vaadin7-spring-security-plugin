@@ -33,7 +33,9 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
-        mavenRepo "https://oss.sonatype.org/content/groups/public"
+        mavenRepo("https://oss.sonatype.org/content/groups/public") {
+            updatePolicy "interval:1"
+        }
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
@@ -50,7 +52,7 @@ grails.project.dependency.resolution = {
             export = false
         }
 
-        compile("com.github.vaadin-for-grails:vaadin-core:2.5-SNAPSHOT") {
+        compile("com.github.vaadin-for-grails:vaadin-core:1.0-SNAPSHOT") {
             export = false
         }
     }

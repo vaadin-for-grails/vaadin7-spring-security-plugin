@@ -1,16 +1,19 @@
+import com.vaadin.grails.ui.DefaultUI
+import demo.IndexView
+
 vaadin {
 
     mappings {
 
         "/vaadin" {
-            ui = "default"
+            ui = DefaultUI
             theme = "valo"
-            access = ["ROLE_ADMIN"]
+//            access = ["ROLE_ADMIN"]
 
             fragments {
 
                 "index" {
-                    view = "index"
+                    view = IndexView
                     access = ["ROLE_ADMIN"]
                 }
 
