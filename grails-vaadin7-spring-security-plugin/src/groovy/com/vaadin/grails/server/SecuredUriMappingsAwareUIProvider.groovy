@@ -37,21 +37,18 @@ class SecuredUriMappingsAwareUIProvider extends UriMappingsAwareUIProvider {
 
     @Override
     Class<? extends UI> getUIClass(UIClassSelectionEvent event) {
-        def uiClass = super.getUIClass(event)
-        if (uiClass) {
-            def path = uriMappings.getPath(uiClass)
-            def roles = getRoles(path)
-            if (roles?.length > 0) {
-                def securityService = Vaadin.getInstance(SpringSecurityService)
-                if (!securityService.isLoggedIn()) {
-                    return loginUIClass
-                } else if (!SpringSecurityUtils.ifAllGranted(roles.join(","))) {
-                    return notAuthorizedUIClass
-                } else {
-//                    granted!
-                }
+        def path = pathHelper.getPathWithinApplication(event.request)
+        def roles = getRoles(path)
+        if (roles?.length > 0) {
+            def securityService = Vaadin.getInstance(SpringSecurityService)
+            if (!securityService.isLoggedIn()) {
+                return loginUIClass
+            } else if (!SpringSecurityUtils.ifAllGranted(roles.join(","))) {
+                return notAuthorizedUIClass
+            } else {
+//                granted!
             }
         }
-        uiClass
+        super.getUIClass(event)
     }
 }

@@ -24,6 +24,10 @@ import grails.plugin.springsecurity.SpringSecurityUtils
  */
 class SecuredUriMappingsAwareViewProvider extends UriMappingsAwareViewProvider {
 
+    SecuredUriMappingsAwareViewProvider(String path) {
+        super(path)
+    }
+
     Class<? extends View> getLoginViewClass() {
         LoginView
     }
@@ -33,13 +37,11 @@ class SecuredUriMappingsAwareViewProvider extends UriMappingsAwareViewProvider {
     }
 
     String[] getRoles(String fragment) {
-        def path = uriMappings.getPath(UI.current.class)
         uriMappings.getFragmentProperty(path, fragment, SecurityAwareUriMappingsHolder.ACCESS_FRAGMENT_PROPERTY)
     }
 
     @Override
     View getView(String fragment) {
-        def path = uriMappings.getPath(UI.current.class)
         if (fragment == "") {
             fragment = getDefaultFragment(path)
         }
