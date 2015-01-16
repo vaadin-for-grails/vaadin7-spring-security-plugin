@@ -5,7 +5,6 @@ import com.vaadin.grails.security.ui.LoginView
 import com.vaadin.grails.security.ui.NotAuthorizedView
 import com.vaadin.grails.server.SecurityAwareUriMappingsHolder
 import com.vaadin.navigator.View
-import com.vaadin.ui.UI
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 
@@ -23,10 +22,6 @@ import grails.plugin.springsecurity.SpringSecurityUtils
  * @author Stephan Grundner
  */
 class SecuredUriMappingsAwareViewProvider extends UriMappingsAwareViewProvider {
-
-    SecuredUriMappingsAwareViewProvider(String path) {
-        super(path)
-    }
 
     Class<? extends View> getLoginViewClass() {
         LoginView

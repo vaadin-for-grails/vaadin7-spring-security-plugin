@@ -32,6 +32,7 @@ class DefaultLoginComponent extends CustomComponent implements LoginComponent {
         def form = new FormLayout()
         form.addComponent(titleLabel = new Label(value: Vaadin.i18n("security.login.title"), styleName: "h1"))
         form.addComponent(usernameField = new TextField(Vaadin.i18n("security.username.caption")))
+        usernameField.focus()
         form.addComponent(passwordField = new PasswordField(Vaadin.i18n("security.password.caption")))
         form.addComponent(loginButton = new Button(Vaadin.i18n("security.login.button")))
         loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER)

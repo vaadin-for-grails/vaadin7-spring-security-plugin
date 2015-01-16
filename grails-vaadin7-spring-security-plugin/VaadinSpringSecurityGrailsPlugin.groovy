@@ -1,3 +1,10 @@
+import com.vaadin.grails.security.ui.DefaultLoginComponent
+import com.vaadin.grails.security.ui.DefaultNotAuthorizedComponent
+import com.vaadin.grails.security.ui.LoginUI
+import com.vaadin.grails.security.ui.LoginView
+import com.vaadin.grails.security.ui.NotAuthorizedUI
+import com.vaadin.grails.security.ui.NotAuthorizedView
+
 class VaadinSpringSecurityGrailsPlugin {
 
     def version = "1.0-SNAPSHOT"
@@ -31,5 +38,25 @@ Plugin for integrating Spring Security with Vaadin into Grails.
             bean.autowire = "byName"
         }
         "uriMappingsHolder"(com.vaadin.grails.server.SecurityAwareUriMappingsHolder)
+
+        "loginComponent"(DefaultLoginComponent) { bean ->
+            bean.scope = "prototype"
+        }
+        "loginUI"(LoginUI) { bean ->
+            bean.scope = "prototype"
+        }
+        "loginView"(LoginView) { bean ->
+            bean.scope = "prototype"
+        }
+
+        "notAuthorizedComponent"(DefaultNotAuthorizedComponent) { bean ->
+            bean.scope = "prototype"
+        }
+        "notAuthorizedUI"(NotAuthorizedUI) { bean ->
+            bean.scope = "prototype"
+        }
+        "notAuthorizedView"(NotAuthorizedView) { bean ->
+            bean.scope = "prototype"
+        }
     }
 }

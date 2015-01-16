@@ -48,7 +48,8 @@ class LoginPresenter {
     }
 
     void failed() {
-        def error = new UserError(Vaadin.i18n("security.login.failed.message"))
+        def message = Vaadin.i18n("security.login.failed.message")
+        def error = new UserError(message)
         panel.usernameField.setComponentError(error)
         panel.passwordField.setComponentError(error)
     }

@@ -1,5 +1,6 @@
 package com.vaadin.grails.security.ui
 
+import com.vaadin.grails.Vaadin
 import com.vaadin.server.VaadinRequest
 import com.vaadin.ui.Component
 import com.vaadin.ui.UI
@@ -12,7 +13,7 @@ import com.vaadin.ui.UI
 class LoginUI extends UI {
 
     protected Component buildContent() {
-        new DefaultLoginComponent()
+        Vaadin.newInstance(LoginComponent)
     }
 
     @Override

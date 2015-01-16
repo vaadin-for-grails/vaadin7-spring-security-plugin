@@ -1,5 +1,5 @@
 import com.vaadin.grails.ui.DefaultUI
-import demo.IndexView
+import demo.ui.IndexView
 
 vaadin {
 

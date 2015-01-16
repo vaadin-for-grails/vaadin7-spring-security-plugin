@@ -1,5 +1,6 @@
 package com.vaadin.grails.security.ui
 
+import com.vaadin.grails.Vaadin
 import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener
 import com.vaadin.ui.Component
@@ -13,7 +14,7 @@ import com.vaadin.ui.CustomComponent
 class LoginView extends CustomComponent implements View {
 
     Component buildCompositionRoot() {
-        new DefaultLoginComponent()
+        Vaadin.newInstance(LoginComponent)
     }
 
     @Override
