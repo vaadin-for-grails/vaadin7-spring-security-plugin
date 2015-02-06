@@ -43,7 +43,7 @@ class SecuredUriMappingsAwareUIProvider extends UriMappingsAwareUIProvider {
             def securityService = Vaadin.getInstance(SpringSecurityService)
             if (!securityService.isLoggedIn()) {
                 return loginUIClass
-            } else if (!SpringSecurityUtils.ifAllGranted(roles.join(","))) {
+            } else if (!SpringSecurityUtils.ifAnyGranted(roles.join(","))) {
                 return notAuthorizedUIClass
             } else {
 //                granted!
