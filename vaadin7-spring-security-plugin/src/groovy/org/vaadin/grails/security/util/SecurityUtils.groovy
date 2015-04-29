@@ -5,6 +5,12 @@ import org.vaadin.grails.security.server.SecurityAwareUriMappings
 import org.vaadin.grails.server.UriMappings
 import org.vaadin.grails.util.ApplicationContextUtils
 
+/**
+ * Security utils.
+ *
+ * @author Stephan Grundner
+ * @since 2.0
+ */
 final class SecurityUtils {
 
     static Collection<String> getAccessPropertiesForPath(UriMappings uriMappings, String path) {
