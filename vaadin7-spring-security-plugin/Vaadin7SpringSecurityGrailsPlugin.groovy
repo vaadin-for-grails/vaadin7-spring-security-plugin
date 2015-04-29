@@ -1,8 +1,11 @@
+import grails.plugin.springsecurity.ReflectionUtils
+import grails.plugin.springsecurity.SecurityConfigType
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.util.Holders
+import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.vaadin.grails.security.navigator.UriMappingsAwareViewProvider
 import org.vaadin.grails.security.server.SecurityAwareUriMappings
 import org.vaadin.grails.security.server.UriMappingsAwareUIProvider
-import org.vaadin.grails.security.ui.DefaultNotAuthorizedComponent
 import org.vaadin.grails.server.UriMappings
 
 /**
@@ -16,8 +19,8 @@ class Vaadin7SpringSecurityGrailsPlugin {
     def grailsVersion = "2.4 > *"
 
     def group = "com.github.vaadin-for-grails"
-    def dependsOn = ["vaadin7": "2.0-SNAPSHOT"]
-    def loadAfter = ["vaadin7"]
+    def dependsOn = ["vaadin7": "2.0-SNAPSHOT", "springSecurityCore": "2.0 > *"]
+    def loadAfter = ["vaadin7", "spring-security-core"]
 
     def title = "Vaadin 7 Spring Security Plugin"
     def author = "Stephan Grundner"
@@ -33,6 +36,38 @@ Plugin for integrating Spring Security with Vaadin 7 into Grails.
 
     def scm = [ url: "https://github.com/vaadin-for-grails/vaadin7-spring-security-plugin" ]
 
+    def applyDefaultSecurityRules = { GrailsApplication application ->
+        def securityConfig = SpringSecurityUtils.securityConfig
+        def type = securityConfig.securityConfigType
+
+        Map map = null
+        if (type == SecurityConfigType.InterceptUrlMap) {
+            map = securityConfig.interceptUrlMap
+        } else {
+            map = securityConfig.controllerAnnotations.staticRules
+        }
+
+        if (map) {
+            def mappingsConfig = application.config.vaadin.mappings
+            mappingsConfig.each { String path, ConfigObject pathConfig ->
+                def key = "${path}/**"
+                if (!map.containsKey(key)) {
+                    map += [(key): ['permitAll']]
+                }
+            }
+
+            if (type == SecurityConfigType.InterceptUrlMap) {
+                map = securityConfig.interceptUrlMap = map
+            } else {
+                map = securityConfig.controllerAnnotations.staticRules = map
+            }
+
+            SpringSecurityUtils.setSecurityConfig(securityConfig)
+            ReflectionUtils.setSecurityConfig(securityConfig)
+            SpringSecurityUtils.reloadSecurityConfig()
+        }
+    }
+
     def doWithSpring = {
         "uiProvider"(UriMappingsAwareUIProvider) { bean ->
             bean.scope = "prototype"
@@ -42,6 +77,9 @@ Plugin for integrating Spring Security with Vaadin 7 into Grails.
             bean.scope = "prototype"
             bean.autowire = "byName"
         }
+        "uriMappings"(SecurityAwareUriMappings)
+
+        applyDefaultSecurityRules(application)
     }
 
     def doWithApplicationContext = { ctx ->

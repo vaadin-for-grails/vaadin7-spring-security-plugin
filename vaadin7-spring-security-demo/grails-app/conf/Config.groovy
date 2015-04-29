@@ -1,3 +1,5 @@
+import grails.plugin.springsecurity.SecurityConfigType
+
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
@@ -121,6 +123,9 @@ log4j.main = {
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'demo.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'demo.UserRole'
 grails.plugin.springsecurity.authority.className = 'demo.Role'
+//grails.plugin.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
+grails.plugin.springsecurity.securityConfigType = SecurityConfigType.Annotation
+//grails.plugin.springsecurity.interceptUrlMap = [
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
 	'/index':                         ['permitAll'],
@@ -130,7 +135,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/css/**':                     ['permitAll'],
 	'/**/images/**':                  ['permitAll'],
 	'/**/favicon.ico':                ['permitAll'],
-	'/vaadin/**':                ['permitAll'],
-	'/vaadin2/**':                ['permitAll']
+//	'/vaadin/**':                ['permitAll'],
+//	'/vaadin2/**':                ['permitAll']
 ]
 
