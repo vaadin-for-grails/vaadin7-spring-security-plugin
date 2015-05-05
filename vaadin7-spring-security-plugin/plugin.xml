@@ -1,10 +1,10 @@
-<plugin name='vaadin-spring-security' version='1.0-SNAPSHOT' grailsVersion='2.4 &gt; *'>
+<plugin name='vaadin7-spring-security' version='2.0.1-SNAPSHOT' grailsVersion='2.4 &gt; *'>
   <author>Stephan Grundner</author>
   <authorEmail>stephan.grundner@gmail.com</authorEmail>
-  <title>Vaadin Spring Security Plugin</title>
-  <description>Plugin for integrating Spring Security with Vaadin into Grails.
+  <title>Vaadin 7 Spring Security Plugin</title>
+  <description>Plugin for integrating Spring Security with Vaadin 7 into Grails.
 </description>
-  <documentation>https://github.com/vaadin-for-grails/grails-vaadin-spring-security-plugin</documentation>
-  <type>VaadinSpringSecurityGrailsPlugin</type>
+  <documentation>https://github.com/vaadin-for-grails/vaadin7-spring-security-plugin</documentation>
+  <type>Vaadin7SpringSecurityGrailsPlugin</type>
   <resources />
 </plugin>

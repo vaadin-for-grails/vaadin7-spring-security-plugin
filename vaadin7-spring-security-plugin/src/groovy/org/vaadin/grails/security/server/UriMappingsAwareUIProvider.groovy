@@ -1,12 +1,11 @@
 package org.vaadin.grails.security.server
 
-import com.vaadin.navigator.ViewProvider
+import com.vaadin.navigator.Navigator
 import com.vaadin.server.UIClassSelectionEvent
 import com.vaadin.ui.UI
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import org.vaadin.grails.security.navigator.UriMappingsAwareViewProvider
-import org.vaadin.grails.security.server.SecurityAwareUriMappings
 import org.vaadin.grails.security.ui.LoginUI
 import org.vaadin.grails.security.ui.NotAuthorizedUI
 import org.vaadin.grails.security.util.SecurityUtils
@@ -63,7 +62,9 @@ class UriMappingsAwareUIProvider extends org.vaadin.grails.server.UriMappingsAwa
     }
 
     @Override
-    protected ViewProvider createViewProvider() {
-        new UriMappingsAwareViewProvider()
+    protected Navigator createNavigator(UI ui) {
+        def navigator = new Navigator(ui, ui)
+        navigator.addProvider(new UriMappingsAwareViewProvider())
+        navigator
     }
 }

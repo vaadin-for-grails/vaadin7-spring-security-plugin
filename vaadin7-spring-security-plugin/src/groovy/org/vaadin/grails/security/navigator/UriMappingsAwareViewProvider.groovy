@@ -7,6 +7,8 @@ import org.vaadin.grails.navigator.Navigation
 import org.vaadin.grails.security.ui.LoginView
 import org.vaadin.grails.security.ui.NotAuthorizedView
 import org.vaadin.grails.security.util.SecurityUtils
+import org.vaadin.grails.server.UriMappings
+import org.vaadin.grails.server.UriMappingsUtils
 import org.vaadin.grails.util.ApplicationContextUtils
 
 /**
@@ -44,10 +46,12 @@ class UriMappingsAwareViewProvider extends org.vaadin.grails.navigator.UriMappin
 
     @Override
     View getView(String fragment) {
-        def path = Navigation.current.path
+        def path = Navigation.currentPath
 
         if (fragment == "") {
-            fragment = getDefaultFragment(path)
+            def uriMappings = UriMappingsUtils.uriMappings
+            fragment = uriMappings.getPathProperty(path,
+                    UriMappings.DEFAULT_FRAGMENT_PATH_PROPERTY)
         }
 
         def requiredRoles = getRequiredRoles(path, fragment)
