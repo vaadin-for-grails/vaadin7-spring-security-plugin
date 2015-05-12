@@ -1,6 +1,7 @@
 package org.vaadin.grails.security.ui
 
 import com.vaadin.event.ShortcutAction
+import groovy.beans.ListenerList
 import org.vaadin.grails.security.navigator.LoginPresenter
 import com.vaadin.ui.*
 import org.vaadin.grails.util.ApplicationContextUtils
@@ -13,6 +14,7 @@ import org.vaadin.grails.util.ApplicationContextUtils
 class DefaultLoginComponent extends CustomComponent implements LoginComponent {
 
     final LoginPresenter presenter
+    final Set<LoginComponent.LoginListener> loginListeners = new HashSet()
 
     Label titleLabel
     TextField usernameField
@@ -46,5 +48,32 @@ class DefaultLoginComponent extends CustomComponent implements LoginComponent {
 
     LoginPresenter createPresenter() {
         new LoginPresenter(this)
+    }
+
+    @Override
+    boolean addLoginListener(LoginComponent.LoginListener listener) {
+        loginListeners.add(listener)
+    }
+
+    @Override
+    boolean removeLoginListener(LoginComponent.LoginListener listener) {
+        loginListeners.remove(listener)
+    }
+
+    @Override
+    void fireLoginSucceededEvent() {
+        def event = new LoginComponent.LoginEvent(this)
+        loginListeners.each { loginListener ->
+            loginListener.loginSucceeded(event)
+        }
+    }
+
+    @Override
+    void fireLoginFailedEvent() {
+        println "failed: ${loginListeners}"
+        def event = new LoginComponent.LoginEvent(this)
+        loginListeners.each { loginListener ->
+            loginListener.loginFailed(event)
+        }
     }
 }

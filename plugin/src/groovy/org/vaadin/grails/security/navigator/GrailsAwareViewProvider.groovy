@@ -1,14 +1,18 @@
 package org.vaadin.grails.security.navigator
 
 import com.vaadin.navigator.View
+import com.vaadin.navigator.ViewChangeListener
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
+import grails.util.Holders
 import org.vaadin.grails.navigator.Navigation
+import org.vaadin.grails.security.ui.LoginComponent
 import org.vaadin.grails.security.ui.LoginView
+import org.vaadin.grails.security.ui.LoginWindow
 import org.vaadin.grails.security.ui.NotAuthorizedView
 import org.vaadin.grails.security.util.SecurityUtils
+import org.vaadin.grails.server.UriMappingUtils
 import org.vaadin.grails.server.UriMappings
-import org.vaadin.grails.server.UriMappingsUtils
 import org.vaadin.grails.util.ApplicationContextUtils
 
 /**
@@ -24,7 +28,7 @@ import org.vaadin.grails.util.ApplicationContextUtils
  *
  * @author Stephan Grundner
  */
-class UriMappingsAwareViewProvider extends org.vaadin.grails.navigator.UriMappingsAwareViewProvider  {
+class GrailsAwareViewProvider extends org.vaadin.grails.navigator.GrailsAwareViewProvider implements ViewChangeListener  {
 
     Class<? extends View> getLoginViewClass() {
         LoginView
@@ -49,7 +53,7 @@ class UriMappingsAwareViewProvider extends org.vaadin.grails.navigator.UriMappin
         def path = Navigation.currentPath
 
         if (fragment == "") {
-            def uriMappings = UriMappingsUtils.uriMappings
+            def uriMappings = UriMappingUtils.uriMappings
             fragment = uriMappings.getPathProperty(path,
                     UriMappings.DEFAULT_FRAGMENT_PATH_PROPERTY)
         }
@@ -68,4 +72,36 @@ class UriMappingsAwareViewProvider extends org.vaadin.grails.navigator.UriMappin
 
         super.getView(fragment)
     }
+
+    @Override
+    boolean beforeViewChange(ViewChangeListener.ViewChangeEvent event) {
+        def omitLoginWindow = Holders.config.vaadin.omitLoginWindow
+        if (omitLoginWindow || event.oldView == null) {
+            return true
+        }
+
+        if (loginViewClass.isAssignableFrom(event.newView?.getClass())) {
+
+            final loginWindow = new LoginWindow()
+            loginWindow.loginComponent.addLoginListener(new LoginComponent.LoginListener() {
+                @Override
+                void loginSucceeded(LoginComponent.LoginEvent loginEvent) {
+                    loginWindow.close()
+                    def params = Navigation.fromParamsString(event.parameters)
+                    Navigation.navigateTo(fragment: event.viewName, params: params)
+                }
+
+                @Override
+                void loginFailed(LoginComponent.LoginEvent loginEvent) { }
+            })
+            loginWindow.open()
+
+            return false
+        }
+
+        true
+    }
+
+    @Override
+    void afterViewChange(ViewChangeListener.ViewChangeEvent event) { }
 }

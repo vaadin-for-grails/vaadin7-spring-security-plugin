@@ -4,7 +4,7 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.util.Holders
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.vaadin.grails.security.server.SecurityAwareUriMappings
-import org.vaadin.grails.security.server.UriMappingsAwareUIProvider
+import org.vaadin.grails.security.server.GrailsAwareUIProvider
 import org.vaadin.grails.server.UriMappings
 
 /**
@@ -71,7 +71,7 @@ Plugin for integrating Spring Security with Vaadin 7 into Grails.
     }
 
     def doWithSpring = {
-        "uiProvider"(UriMappingsAwareUIProvider) { bean ->
+        "uiProvider"(GrailsAwareUIProvider) { bean ->
             bean.scope = "prototype"
             bean.autowire = "byName"
         }

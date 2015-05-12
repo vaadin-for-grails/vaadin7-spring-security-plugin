@@ -1,4 +1,5 @@
 import demo.ui.IndexView
+import demo.ui.SecondView
 
 vaadin {
 
@@ -12,9 +13,14 @@ vaadin {
 
             fragments {
 
-                "test" {
+                "index" {
                     view = IndexView
                     access = "permitAll"
+                }
+
+                "second" {
+                    view = SecondView
+                    access = "ROLE_ADMIN"
                 }
 
             }

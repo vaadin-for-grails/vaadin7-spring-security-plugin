@@ -1,6 +1,5 @@
 package org.vaadin.grails.security.navigator
 
-import com.vaadin.server.Page
 import com.vaadin.server.UserError
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
@@ -16,24 +15,25 @@ import org.vaadin.grails.util.ApplicationContextUtils
  */
 class LoginPresenter {
 
-    final LoginComponent panel
+    final LoginComponent component
 
-    LoginPresenter(LoginComponent panel) {
-        this.panel = panel
+    LoginPresenter(LoginComponent component) {
+        this.component = component
     }
 
     void init() {
-        panel.loginButton.addClickListener({ e ->
+        component.loginButton.addClickListener({ e ->
             login()
         })
+
     }
 
     void login() {
         def applicationContext = ApplicationContextUtils.applicationContext
         def manager = applicationContext.getBean(AuthenticationManager)
         def authentication = new UsernamePasswordAuthenticationToken(
-                panel.usernameField.value,
-                panel.passwordField.value)
+                component.usernameField.value,
+                component.passwordField.value)
         try {
             def result = manager.authenticate(authentication)
             SecurityContextHolder.context.authentication = result
@@ -44,13 +44,15 @@ class LoginPresenter {
     }
 
     void succeeded() {
-        Page.current.reload()
+//        Page.current.reload()
+        component.fireLoginSucceededEvent()
     }
 
     void failed() {
         def message = ApplicationContextUtils.getMessage("security.login.failed.message")
         def error = new UserError(message)
-        panel.usernameField.setComponentError(error)
-        panel.passwordField.setComponentError(error)
+        component.usernameField.setComponentError(error)
+        component.passwordField.setComponentError(error)
+        component.fireLoginFailedEvent()
     }
 }

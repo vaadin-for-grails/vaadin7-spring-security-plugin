@@ -23,7 +23,7 @@ grails.project.fork = [
 
 grails.project.dependency.resolver = "maven" // or ivy
 
-grails.plugin.location."vaadin7-spring-security" = "../vaadin7-spring-security-plugin"
+grails.plugin.location."vaadin7-spring-security" = "../plugin"
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
