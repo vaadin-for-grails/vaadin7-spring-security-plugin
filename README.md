@@ -1,1 +1,10 @@
-See [Documentation](https://github.com/vaadin-for-grails/organization/wiki/Vaadin-Spring-Security-Plugin)
+# Vaadin 7 Spring Security Plugin
+
+```groovy
+mappins {
+  "/some" {
+    ui = SomeUI
+    access = ["ROLE_ADMIN"]
+  }
+}
+```
