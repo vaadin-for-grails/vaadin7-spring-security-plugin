@@ -25,13 +25,6 @@ vaadin {
 
             }
         }
-
-        "/vaadin2" {
-            theme = "valo"
-            access = ["ROLE_ADMIN"]
-
-        }
-
     }
 
 }

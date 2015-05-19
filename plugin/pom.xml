@@ -7,7 +7,7 @@
     <groupId>com.github.vaadin-for-grails</groupId>
     <artifactId>vaadin7-spring-security</artifactId>
     <packaging>grails-plugin</packaging>
-    <version>2.0</version>
+    <version>2.1</version>
 
     <name>vaadin7-spring-security-plugin</name>
     <description>Vaadin 7 Spring Security Grails Plugin</description>
@@ -48,7 +48,6 @@
             <type>pom</type>
         </dependency>
 
-
         <dependency>
             <groupId>org.grails</groupId>
             <artifactId>grails-test</artifactId>
@@ -77,15 +76,11 @@
             <scope>test</scope>
         </dependency>
 
-
-
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-server</artifactId>
             <version>7.4.5</version>
             <scope>compile</scope>
-
-
         </dependency>
 
         <dependency>
@@ -93,8 +88,6 @@
             <artifactId>vaadin-client-compiled</artifactId>
             <version>7.4.5</version>
             <scope>compile</scope>
-
-
         </dependency>
 
         <dependency>
@@ -102,8 +95,6 @@
             <artifactId>vaadin-client</artifactId>
             <version>7.4.5</version>
             <scope>compile</scope>
-
-
         </dependency>
 
         <dependency>
@@ -111,8 +102,6 @@
             <artifactId>vaadin-client-compiler</artifactId>
             <version>7.4.5</version>
             <scope>compile</scope>
-
-
         </dependency>
 
         <dependency>
@@ -120,8 +109,6 @@
             <artifactId>vaadin-themes</artifactId>
             <version>7.4.5</version>
             <scope>compile</scope>
-
-
         </dependency>
 
         <dependency>
@@ -129,10 +116,7 @@
             <artifactId>vaadin-push</artifactId>
             <version>7.4.5</version>
             <scope>compile</scope>
-
-
         </dependency>
-
 
         <dependency>
             <groupId>org.grails.plugins</groupId>
@@ -141,6 +125,14 @@
             <type>zip</type>
             <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.vaadin-for-grails</groupId>
+            <artifactId>vaadin7</artifactId>
+            <version>LATEST</version>
+            <scope>pom</scope>
+        </dependency>
+
     </dependencies>
 
     <distributionManagement>

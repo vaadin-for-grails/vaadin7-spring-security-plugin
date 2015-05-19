@@ -1,9 +1,8 @@
 package org.vaadin.grails.security.ui
 
 import com.vaadin.event.ShortcutAction
-import groovy.beans.ListenerList
-import org.vaadin.grails.security.navigator.LoginPresenter
 import com.vaadin.ui.*
+import org.vaadin.grails.security.navigator.LoginPresenter
 import org.vaadin.grails.util.ApplicationContextUtils
 
 /**

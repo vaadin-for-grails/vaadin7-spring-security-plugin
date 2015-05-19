@@ -14,11 +14,11 @@ import org.vaadin.grails.server.UriMappings
  */
 class Vaadin7SpringSecurityGrailsPlugin {
 
-    def version = "2.0"
+    def version = "2.1"
     def grailsVersion = "2.4 > *"
 
     def group = "com.github.vaadin-for-grails"
-    def dependsOn = ["vaadin7": "2.0 > *", "springSecurityCore": "2.0 > *"]
+//    def dependsOn = ["vaadin7": "2.0 > *"]
     def loadAfter = ["vaadin7", "spring-security-core"]
 
     def title = "Vaadin 7 Spring Security Plugin"

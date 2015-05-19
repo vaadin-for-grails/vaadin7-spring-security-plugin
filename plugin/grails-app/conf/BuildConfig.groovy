@@ -52,7 +52,7 @@ grails.project.dependency.resolution = {
             export = false
         }
 
-        compile("com.github.vaadin-for-grails:vaadin7:LATEST") {
+        compile("com.github.vaadin-for-grails:vaadin7:2.1") {
             export = false
         }
     }
