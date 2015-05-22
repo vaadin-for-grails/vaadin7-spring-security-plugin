@@ -14,7 +14,7 @@ import org.vaadin.grails.server.UriMappings
  */
 class Vaadin7SpringSecurityGrailsPlugin {
 
-    def version = "2.1-SNAPSHOT"
+    def version = "2.1"
     def grailsVersion = "2.4 > *"
 
     def group = "com.github.vaadin-for-grails"
