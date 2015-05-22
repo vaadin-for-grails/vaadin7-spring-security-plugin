@@ -45,6 +45,7 @@ class LoginPresenter {
 
     void succeeded() {
 //        Page.current.reload()
+//        @since 2.1
         component.fireLoginSucceededEvent()
     }
 

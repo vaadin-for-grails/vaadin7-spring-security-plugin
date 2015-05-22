@@ -18,6 +18,7 @@ grails.project.fork = [
 
 grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
+
     // inherit Grails' default dependencies
     inherits("global") {
         // uncomment to disable ehcache
@@ -33,9 +34,9 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
-        mavenRepo("https://oss.sonatype.org/content/groups/public") {
-            updatePolicy "interval:1"
-        }
+//        mavenRepo("https://oss.sonatype.org/content/groups/public") {
+//            updatePolicy "interval:1"
+//        }
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
@@ -52,6 +53,9 @@ grails.project.dependency.resolution = {
             export = false
         }
 
+//        build("com.github.vaadin-for-grails:vaadin7:2.1") {
+//            export = false
+//        }
         compile("com.github.vaadin-for-grails:vaadin7:2.1") {
             export = false
         }
@@ -59,8 +63,8 @@ grails.project.dependency.resolution = {
 }
 
 grails.project.repos.default = "sonatype"
-//grails.project.repos.sonatype.url = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
-grails.project.repos.sonatype.url = "https://oss.sonatype.org/content/repositories/snapshots"
+grails.project.repos.sonatype.url = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+//grails.project.repos.sonatype.url = "https://oss.sonatype.org/content/repositories/snapshots"
 grails.project.repos.sonatype.type = "maven"
 
 // Add the following properties to ~/.grails/settings.groovy:

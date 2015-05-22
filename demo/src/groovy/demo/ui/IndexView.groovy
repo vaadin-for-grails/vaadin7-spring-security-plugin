@@ -13,7 +13,7 @@ class IndexView extends CustomComponent implements View {
         compositionRoot = ComponentBuilder.build {
             verticalLayout(margin: true) {
                 button(caption: "Next View", styleName: "primary", clickListener: {
-                    Navigation.navigateTo(fragment: "second")
+                    Navigation.navigateTo(fragment: "second", params: [foo: 'bar'])
                 })
             }
         }

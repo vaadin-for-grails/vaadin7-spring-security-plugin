@@ -69,7 +69,6 @@ class DefaultLoginComponent extends CustomComponent implements LoginComponent {
 
     @Override
     void fireLoginFailedEvent() {
-        println "failed: ${loginListeners}"
         def event = new LoginComponent.LoginEvent(this)
         loginListeners.each { loginListener ->
             loginListener.loginFailed(event)

@@ -14,7 +14,7 @@ import org.vaadin.grails.server.UriMappings
  */
 class Vaadin7SpringSecurityGrailsPlugin {
 
-    def version = "2.1"
+    def version = "2.1-SNAPSHOT"
     def grailsVersion = "2.4 > *"
 
     def group = "com.github.vaadin-for-grails"
@@ -44,7 +44,7 @@ Plugin for integrating Spring Security with Vaadin 7 into Grails.
             map = securityConfig.interceptUrlMap
         } else if (type == SecurityConfigType.Requestmap) {
 //            TODO Implement default rules for Requestmap config type
-            log.warn("The value ${SecurityConfigType.Requestmap} is not supported for [grails.plugin.springsecurity.securityConfigType]")
+            log.warn("Unsupported value ${SecurityConfigType.Requestmap} for option [grails.plugin.springsecurity.securityConfigType]")
         } else {
             map = securityConfig.controllerAnnotations.staticRules
         }
